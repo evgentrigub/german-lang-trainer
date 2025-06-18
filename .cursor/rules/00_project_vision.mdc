@@ -1,0 +1,48 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 00 – Project Vision & Structure
+
+## Vision
+- Build an offline-first web application "German A2 Reading Trainer" that delivers exam-style reading practice with Apple-level polish.
+- Delight learners with instant feedback, adaptive difficulty, and clear progress insights, all without relying on external servers or APIs.
+- Maintain a lean codebase (< 500 LOC per file) that new contributors can grok in minutes.
+
+## Scope & Non-Goals
+- IN: Reading exercises, local progress tracking, adaptive text difficulty, dashboard analytics.
+- OUT: Speaking/listening modules, cloud sync, user accounts, third-party analytics, monetization.
+
+## Technical Stack (researched • 2025-06-12)
+- Next.js 15.1.8 (latest stable) + React 18 + TypeScript.
+- UI: Tailwind CSS v3 (JIT) for rapid theming + Headless UI for accessible primitives.
+- State: React Context or lightweight Zustand (no heavy Redux).
+- Storage: IndexedDB via localForage; fall back to localStorage for small keys.
+
+## High-Level Directory Layout
+```
+/README_PRD.txt           ← living spec & progress log
+/.cursor/rules/           ← project-wide rules (this folder)
+/src/
+  components/             ← reusable UI atoms & molecules
+  features/               ← vertical slices (reading, dashboard…)
+  lib/                    ← shared helpers (storage, i18n, utils)
+  pages/ or app/          ← Next.js routing layer (App Router)
+  styles/                 ← global Tailwind config & CSS
+  tests/                  ← Vitest + React Testing Library specs
+/public/                  ← static assets (icons, sample data…)
+```
+
+## Incremental Roadmap (0-100%)
+1. Bootstrap Next.js + Tailwind template (10%).
+2. Implement "Hello Reading" exercise with hard-coded text (25%).
+3. Local storage of attempts + stats (40%).
+4. Adaptive difficulty selector & dashboard (60%).
+5. Polish, animations, accessibility, dark mode (80%).
+6. QA, tests, performance pass (<1 s TTI) (100%).
+
+## Collaboration Principles
+- PRD is the single source of truth. Update it after every major milestone.
+- Tasks tracked via GitHub issues with clear acceptance criteria.
+- No code merges without passing CI (type-check, lint, tests ≥ 95% coverage).

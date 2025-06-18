@@ -1,0 +1,62 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 20 – Architecture, Design Patterns & Security
+
+## Core Principles
+- **Offline-First**: Everything functions without network. All data lives in browser storage & service-worker cache.
+- **Vertical Slice**: Group related UI, state, and logic under `features/<domain>` to avoid cross-coupling.
+- **Functional Core, Imperative Shell**: Pure functions for business logic; side-effects isolated in thin wrappers.
+- **Component Hierarchy**: Presentational atoms → reusable molecules → feature organisms → page templates.
+
+## Data Flow
+- Unidirectional: parent → child props; state lifted or moved to Context/Zustand store when shared.
+- `async` operations limited to local storage, `fetch` only for local assets (e.g., `/data/a2_texts.json`).
+- Persisted store synchronizes to IndexedDB with debounce; UI updates optimistically.
+
+## Security & Privacy
+- No external calls → no data leaves device.
+- Sanitize all user-rendered HTML (`DOMPurify`) to avoid XSS from imported texts.
+- CSP header `script-src 'self'` in Next.js config.
+- No eval, new Function, or dynamic code execution.
+- Validate JSON schema of any imported data before rendering.
+- Keep dependencies minimal & audited (`npm audit --production`).
+
+## Performance
+- Target <1 s first interaction on mid-tier laptop.
+- Use Next.js App Router + `use client` only where interactivity needed.
+- Lazy-load heavy components (`React.lazy`) & images; skeleton placeholders.
+- Bundle size goal: <250 KB gzipped JS.
+- Memoize selectors with `useMemo`, avoid prop-drilling re-renders.
+- Font: `next/font/google` to self-host & subset only needed glyphs.
+- Service Worker pre-caches core assets + JSON texts for instant load.
+
+## Design Patterns & Libraries
+- Hooks over HOCs (clarity & co-location).
+- Custom hook naming: `useXyz` returns `[state, actions]` tuple.
+- Use React Context only for truly global concerns (theme, locale) – otherwise local state.
+- UI State Machines (`xstate` optional) for complex quiz flows.
+- Error boundaries around feature roots.
+
+## Build & Deployment
+- `next build` generates static export; hosting via static server or local file protocol.
+- GitHub Actions CI: lint, test, build → artifact.
+- Experimental bundler features gated behind env flag, merged after stability proven.
+
+## Logging & Monitoring
+- Minimal console noise in production; use dev-only verbose logging.
+- Capture unexpected errors in local IndexedDB log for user bug report export.
+
+## Dependency Rules
+- Keep third-party libs < 12 total; prefer native browser APIs.
+- Bump dependencies monthly; pinned versions to avoid drift.
+
+## Extensibility
+- Feature flag pattern via environment variables or local settings.
+- New features must ship as isolated slice; no global coupling.
+
+## Compliance
+- Follow WCAG 2.2 AA; language learning tools must be accessible.
+- All texts & UI provide `lang="de"` attributes where appropriate.

@@ -1,0 +1,67 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 30 – UI / UX Principles
+
+## Apple-Level Polish
+- Pixel-perfect spacing & typography: 4-pt baseline grid.
+- Motion with purpose: 200-250 ms ease-out transitions; no gratuitous animations.
+- Haptic-style feedback (visual): subtle button press scaling (98%).
+
+## Layout & Responsiveness
+- Mobile-first; support ≥ 320 px width.
+- Use CSS Grid/Flex for adaptive layouts; no horizontal scroll.
+- Max line-length 65-75 ch for reading comprehension texts.
+- Dashboard cards snap to 12-column layout on ≥ 1024 px.
+
+## Accessibility
+- WCAG 2.2 AA compliance.
+- Semantic HTML (`<main>`, `<nav>`, `<section>`).
+- ARIA roles only when semantics insufficient.
+- Visible focus outlines; contrast ≥ 4.5:1.
+- Prefers-reduced-motion honouring.
+
+## Visual Language
+- Primary palette: neutral grayscale + accent "Goethe blue" (#0080FF).
+- Tailwind custom theme tokens (`--color-primary`, etc.).
+- Icons: Heroicons outline 24 px; filled variant on active.
+- Light & dark themes; auto-detect via `prefers-color-scheme`.
+
+## Interaction Patterns
+- Tap targets ≥ 44 × 44 px.
+- Single-action per screen where possible; avoid modal overload.
+- Undo snackbar for destructive actions.
+- Keyboard shortcuts (⌘/Ctrl+← → navigate questions).
+
+## Reading Exercise UX
+- One text per screen with scroll; questions pinned bottom.
+- Immediate feedback after answer selection (green/red outline + explanation).
+- Progress bar at top shows #questions left.
+- Exit confirmation when mid-exercise.
+
+## Dashboard UX
+- Overview: streak, accuracy %, recent texts.
+- Insight cards are clickable, leading to detailed drill-down pages.
+- Badge achievements with celebratory micro-animations (confetti SVG, reduced-motion respectful).
+
+## Content Authoring Experience
+- Hidden "editor" mode toggled via URL `?edit=1` for quick text creation.
+- Inline validation of A2 vocabulary using Goethe wordlist.
+
+## Copy & Tone
+- German UI with subtle English tooltips for clarity.
+- Concise, friendly tone; avoid jargon.
+- Empty states guide next action with illustration.
+
+## Usability Testing Checklist
+- First-time user completes exercise in < 60 s without hints.
+- All flows usable with keyboard only.
+- Screen reader (VoiceOver, NVDA) announces question context and options.
+- Colour-blind simulation passes (no sole reliance on colour cues).
+
+## Continuous UX Improvement
+- Heuristic review every milestone.
+- Collect voluntary local feedback logs; prompt export as JSON.
+- Iterate micro-copy based on observed confusion points.

@@ -1,0 +1,54 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 10 – Code Style & Quality Principles
+
+## Language & Tooling
+- TypeScript strict mode (`strict: true`) across the repo.
+- ESLint (next/core-web-vitals preset) + Prettier for formatting; errors fail CI.
+- Commit messages follow Conventional Commits; lint-staged enforces `eslint --fix` & `prettier --write` on changed files.
+
+## File & Function Guidelines
+- Max 500 LOC per file → refactor into smaller modules or hooks if exceeded.
+- Aim for ≤ 50 LOC per React component/hook (excluding type defs).
+- 1 public export per file when reasonable; collocate tests next to source (`Foo.tsx` + `Foo.test.tsx`).
+
+## Naming
+- Files & folders: kebab-case (`reading-card.tsx`).
+- React components: PascalCase.
+- Hooks: `use` prefix & camelCase (`useReadingStats`).
+- Variables: descriptive, no abbreviations (`currentIndex`, not `idx`).
+
+## Comments & Documentation
+- JSDoc3 for all exported functions, hooks, and complex logic.
+- Focus on **why** and **how**, not obvious **what**.
+- Use single-line `//` comments for quick context, multi-line `/** ... */` for bigger picture.
+- Never delete still-relevant comments; update them alongside code.
+
+## Best Practices
+- Prefer pure functions and declarative React patterns.
+- Avoid shared mutable state; use immutable updates.
+- No `any` types; use unknown → refinement or proper generics.
+- Early return to reduce nesting; guard clauses over deep `if` ladders.
+- Destructure props & state at top of component.
+- Use optional chaining & nullish coalescing instead of verbose checks.
+
+## Testing & Coverage
+- Vitest + React Testing Library for unit/component tests.
+- 95%+ lines & branches coverage on core logic (reading scoring, adaptive algo).
+- Avoid testing implementation details; test behaviour & DOM.
+
+## Tooling Scripts
+```
+"lint": "eslint . --ext .ts,.tsx",
+"format": "prettier --write .",
+"test": "vitest run --coverage",
+"type-check": "tsc --noEmit"
+```
+
+## Continuous Improvement
+- Run `--fix` + `--write` pre-commit; CI double-checks.
+- Refactor when code smells exceed boy-scout threshold.
+- PR reviews enforce these rules; blockers until resolved.
